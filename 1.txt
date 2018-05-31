@@ -1,0 +1,43 @@
+mnemonic:  such talk rally affair police video security garden zebra chimney boost large
+
+
+seed:  <Buffer fe 86 f8 8a cf 22 fe 54 1c c2 0f a5 fb a8 f7 fd 8b bc 2a fb 77 87 05 75 dc 89 b1 a9 13 7e 7d 74 7c 8a 4b 44 7d c0 bd 1b 72 4a 7a d3 43 47 07 be 5a 56 ... >
+
+
+root:  HDKey {
+  versions: { private: 76066276, public: 76067358 },
+  depth: 0,
+  index: 0,
+  _privateKey: <Buffer 6d 35 26 20 7f d6 ef 7e 5b 6b 31 af 7a 85 12 46 5c cd 74 f4 b2 90 12 3b 39 47 b5 ac ac 99 eb 4b>,
+  _publicKey: <Buffer 02 c0 18 64 eb 99 a6 22 f3 f1 9e af f6 02 2e 88 af 68 fe f2 86 d4 a4 0d 29 d5 e0 0d 19 be eb d6 5a>,
+  chainCode: <Buffer 5b c2 57 da be 79 a1 df aa 86 ef 29 9a 43 19 1e c1 b7 17 ca 56 6f e8 4c 8a ee 0e d5 b1 a2 c5 46>,
+  _fingerprint: 385554801,
+  parentFingerprint: 0,
+  _identifier: <Buffer 16 fb 19 71 46 c4 1f 19 41 8e a1 91 e7 57 6b 5b 86 b4 9c dc> }
+
+
+masterPrivateKey:  6d3526207fd6ef7e5b6b31af7a8512465ccd74f4b290123b3947b5acac99eb4b
+
+
+masterPublicKey:  02c01864eb99a622f3f19eaff6022e88af68fef286d4a40d29d5e00d19beebd65a
+
+
+addrNode: HDKey {
+  versions: { private: 76066276, public: 76067358 },
+  depth: 5,
+  index: 0,
+  _privateKey: <Buffer ea d7 31 c3 ed b8 9b b0 1e 0c 47 85 6b 9f 30 6b c8 64 27 0d 80 e1 9b 3c e9 8f 9c b3 b2 77 a0 57>,
+  _publicKey: <Buffer 03 8a 04 9f 60 13 80 a8 19 5d e6 61 1e 1a 28 8f 54 b7 92 64 f6 eb 6e bb 9c 01 a3 5f c0 75 02 10 63>,
+  chainCode: <Buffer 68 77 ad 30 09 86 2b 53 f5 9b b2 44 43 34 45 ce a5 13 fd 5b 3b 47 91 5d c3 8d 1e 44 75 e7 a6 23>,
+  _fingerprint: 3786341544,
+  parentFingerprint: 1167209032,
+  _identifier: <Buffer e1 ae fc a8 0d 89 94 b3 a0 18 13 38 70 a9 71 69 a5 17 88 8d> }
+
+
+pubKey: <Buffer 8a 04 9f 60 13 80 a8 19 5d e6 61 1e 1a 28 8f 54 b7 92 64 f6 eb 6e bb 9c 01 a3 5f c0 75 02 10 63 a3 da 30 14 57 b4 a2 df 9b 45 5e cf 0a fa b8 99 36 d7 ... >
+
+
+addr: ec4be665aa262c1ded47988f09ceb0af5757bd52
+
+
+address: 0xec4Be665Aa262c1DEd47988f09cEb0aF5757bD52

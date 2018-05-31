@@ -1,0 +1,43 @@
+mnemonic:  antique salt holiday meat welcome draft limb rigid crane clerk trend hollow
+
+
+seed:  <Buffer 44 44 71 00 9f de cf 33 3b 61 39 05 0d 2c df b5 c3 15 cb db a6 76 89 cb 1c b4 7b af 46 a4 1f 8e b9 b7 21 9e df a7 ec 87 33 ca 73 c1 89 6e ec ab f0 03 ... >
+
+
+root:  HDKey {
+  versions: { private: 76066276, public: 76067358 },
+  depth: 0,
+  index: 0,
+  _privateKey: <Buffer ea 5a 0d 73 67 c8 56 b4 84 59 b8 97 d9 f3 fe c8 a7 2b 96 4a 8f b8 2e be 21 59 a8 4b 94 11 0b 65>,
+  _publicKey: <Buffer 02 f5 11 39 cd a0 27 a5 83 37 26 59 68 44 61 ec 8c ed bf ec 2c dc b7 66 66 e3 7b 90 6f c5 33 c6 f5>,
+  chainCode: <Buffer 77 ff 41 e7 36 1e 1d 01 be e6 87 1e 60 28 5e d3 a3 50 3e d7 12 d5 5c 79 53 1c f2 15 20 d3 d8 37>,
+  _fingerprint: 1183233116,
+  parentFingerprint: 0,
+  _identifier: <Buffer 46 86 b4 5c 12 85 49 48 7a 3c 1f c3 5d 74 fd 39 28 27 60 40> }
+
+
+masterPrivateKey:  ea5a0d7367c856b48459b897d9f3fec8a72b964a8fb82ebe2159a84b94110b65
+
+
+masterPublicKey:  02f51139cda027a583372659684461ec8cedbfec2cdcb76666e37b906fc533c6f5
+
+
+addrNode: HDKey {
+  versions: { private: 76066276, public: 76067358 },
+  depth: 5,
+  index: 0,
+  _privateKey: <Buffer 98 6f 88 1c 1d 51 3a a7 d0 ed e2 77 05 a7 cf 6e 02 e6 e0 cb 50 b0 5e a0 9f 00 0c 56 2a 66 64 68>,
+  _publicKey: <Buffer 02 1a 23 ae 7d 4a 09 be 41 19 78 00 c8 73 8d eb fb 5a 3e 9e 2d 0e aa cb 81 3a 02 78 e8 9f 88 11 82>,
+  chainCode: <Buffer 13 c8 18 aa 2b 25 70 b3 0d 2c 3f e0 3d b3 c1 17 85 1a b3 52 94 00 ff 5a 22 73 66 59 4b 7c d5 b5>,
+  _fingerprint: 1713159196,
+  parentFingerprint: 3463293681,
+  _identifier: <Buffer 66 1c bc 1c b9 4d de 8b a5 47 76 1d 1d 9f 5d 81 ff 3e f9 79> }
+
+
+addrNode._privateKey:  986f881c1d513aa7d0ede27705a7cf6e02e6e0cb50b05ea09f000c562a666468
+
+pubKey: <Buffer 1a 23 ae 7d 4a 09 be 41 19 78 00 c8 73 8d eb fb 5a 3e 9e 2d 0e aa cb 81 3a 02 78 e8 9f 88 11 82 83 d1 12 6f cf a8 17 83 5f f9 6c 99 df 09 e2 65 66 b8 ... >
+
+addr: 99a5255df833ab35cf5d9ea52e3aedc697b49bba
+
+address: 0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba

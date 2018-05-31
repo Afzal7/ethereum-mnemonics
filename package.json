@@ -1,0 +1,18 @@
+{
+  "name": "tinyblock-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bip39": "^2.5.0",
+    "ethereumjs-tx": "^1.3.4",
+    "ethereumjs-util": "^5.2.0",
+    "hdkey": "^1.0.0",
+    "web3": "^1.0.0-beta.34"
+  }
+}

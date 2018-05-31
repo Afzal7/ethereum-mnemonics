@@ -1,0 +1,44 @@
+mnemonic:  payment odor income torch meat small half control use ribbon wine light
+
+
+seed:  <Buffer eb dd 4a 92 55 c6 0e 84 aa 99 95 14 a2 b1 1b 15 66 97 91 d7 e7 f0 b7 ed bd 1a c6 6b cc fd 5f dd df 76 23 7d 33 13 a7 8e f0 36 ef 42 18 39 68 f0 85 a3 ... >
+
+
+root:  HDKey {
+  versions: { private: 76066276, public: 76067358 },
+  depth: 0,
+  index: 0,
+  _privateKey: <Buffer a3 5e 32 bc b4 af 1b ed 24 d5 22 cd 0d cc cd 77 8e 1c d2 9f 6f 92 b6 4d 0a 68 68 d8 ff 07 75 a1>,
+  _publicKey: <Buffer 02 da 10 37 5a b1 38 97 0a ad d4 5f 8a 1b 91 d9 45 70 ad ee 36 24 7e 8d 19 4b e9 7d ba 47 25 28 2c>,
+  chainCode: <Buffer 1e 27 ea c2 e6 6a 30 b2 7b cb 1c c6 85 76 f8 ff d3 29 a5 23 49 87 67 3b 11 26 79 d6 84 1c 5e 95>,
+  _fingerprint: 2702989632,
+  parentFingerprint: 0,
+  _identifier: <Buffer a1 1c 59 40 97 a6 7e a2 47 c5 b2 b9 7f d2 97 10 82 94 da c4> }
+
+
+masterPrivateKey:  a35e32bcb4af1bed24d522cd0dcccd778e1cd29f6f92b64d0a6868d8ff0775a1
+
+
+masterPublicKey:  02da10375ab138970aadd45f8a1b91d94570adee36247e8d194be97dba4725282c
+
+
+addrNode: HDKey {
+  versions: { private: 76066276, public: 76067358 },
+  depth: 5,
+  index: 0,
+  _privateKey: <Buffer e0 30 55 e3 c9 09 98 ed 0c a7 1c 7a 2b bc 40 05 5d b4 26 4c 93 7f c0 64 0e 58 39 e7 d0 3e 6e a9>,
+  _publicKey: <Buffer 02 ca a9 b9 f3 22 e1 76 09 93 47 7d 50 78 0f 98 e4 ca 7a 35 99 40 fb 6e ba bc 53 57 fa 04 9a 13 4d>,
+  chainCode: <Buffer 89 ac a2 3d 5d 4d 8b b0 ce c6 d7 85 fa 13 92 d5 e0 21 f8 8f 8c 7c 8b ba 07 74 57 aa d6 3e 2a d3>,
+  _fingerprint: 3395145725,
+  parentFingerprint: 3180381075,
+  _identifier: <Buffer ca 5d cf fd b5 de 97 90 2d 97 5a 7d a8 df 70 9f b9 73 e9 05> }
+
+
+pubKey: <Buffer ca a9 b9 f3 22 e1 76 09 93 47 7d 50 78 0f 98 e4 ca 7a 35 99 40 fb 6e ba bc 53 57 fa 04 9a 13 4d 4a 12 75 bd aa cd 17 b0 14 00 82 cd b1 51 26 6c 83 fd ... >
+
+
+addr: dc95f34b6e36c7fefd6bce81613c0118d188a1f8
+
+
+address: 0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8
+
