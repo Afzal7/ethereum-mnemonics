@@ -4,6 +4,15 @@ const btc = require('bitcoinjs-lib');
 const btcClient = require('bitcoin-core');
 const W3 = require("./lib.js");
 
+const client = new btcClient({
+	headers: true,
+	network: 'testnet',
+	host: '52.15.65.61',
+	password: 'secretpassword',
+	port: 18332,
+	username: 'alt247'
+})
+
 
 // W3.generateMnemonic();
 // W3.generateSeed();
@@ -24,6 +33,11 @@ function generateAddress(){
 	W3.print('WIF: ', addrNode.toWIF())
 	W3.print('extended private key: ', root.toWIF())
 	W3.print('extended public key: ', root.neutered().toBase58())
+
+	client.importAddress(address, 'tinyblock', (result, data) => {
+		W3.print('result: ', result);
+		W3.print('data: ', data);
+	})
 }
 
 function performTransaction(){
@@ -31,21 +45,13 @@ function performTransaction(){
 	var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn'
 	var account = btc.ECPair.fromWIF(testWIF, btc.networks.testnet)
 
-	const client = new btcClient({
-		headers: true,
-		network: 'testnet',
-		host: '52.15.65.61',
-		password: 'secretpassword',
-		port: 18332,
-		username: 'alt247'
-	})
 
 	var txid, txamt, finalTxid, txnhex;
 	var txn = new btc.TransactionBuilder(btc.networks.testnet);
 
 	client.listUnspent(1, 9999999, [address], (result, data) => {
 		if (result && result.name=="RpcError") {
-			print('error: ', result.message)
+			W3.print('error: ', result.message)
 		}
 		else{
 			if (data[0].length) {
