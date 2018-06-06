@@ -18,8 +18,8 @@ const client = new btcClient({
 // W3.generateMnemonic();
 // W3.generateSeed();
 // generateAddress();
-performTransaction(1000000, '2N8zVTv31BadSqWsM923qaHKKgh4kCceDdv');
-
+// performTransaction(1000000, '2N8zVTv31BadSqWsM923qaHKKgh4kCceDdv');
+calculateBalance('mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn');
 
 function generateAddress(){
 	const root = bip32.fromSeed(W3.seed)
@@ -62,7 +62,7 @@ function performTransaction(amount, recipient){
 					if (input>=amount) break;
 				}
 
-				if (input <= (amount + MININGFEE)){
+				if (input < (amount + MININGFEE)){
 					W3.print('error: ', 'Insufficient funds');
 				}
 				else{
@@ -95,6 +95,24 @@ function performTransaction(amount, recipient){
 			}
 		}
 	});
+}
+
+function calculateBalance(address){
+	var balance = 0;
+	client.listUnspent(1, 9999999, [address], (result, transactions) => {
+		if (result && result.name=="RpcError") {
+			W3.print('error: ', result.message);
+		}
+		else{
+			if (transactions[0].length) {
+				for(var transaction of transactions[0]){
+					balance += transaction.amount;
+				}
+			}
+			W3.print('balance: ', balance)
+		}
+	});
+	return balance;
 }
 
 
