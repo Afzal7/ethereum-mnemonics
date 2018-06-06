@@ -64,7 +64,7 @@ client.listUnspent(1, 9999999, [address], (result, data) => {
 			txnhex = txn.build().toHex();
 
 			client.sendRawTransaction(txnhex, (result, data) => {
-				if (result && result.toString().includes('RpcError')) {
+				if (result && result.name=="RpcError") {
 					print('transaction error: ',result.message);
 				}
 				else{
@@ -74,11 +74,10 @@ client.listUnspent(1, 9999999, [address], (result, data) => {
 			});
 		}
 		else{
-			print('error: ', 'No unspent transactions present')
+			print('message: ', 'No unspent transactions present')
 		}
 	}
 });
-
 
 function print(name, message=''){
 	console.log('');
