@@ -3,7 +3,7 @@ const bip32 = require("bip32");
 const btc = require('bitcoinjs-lib');
 const btcClient = require('bitcoin-core');
 const W3 = require("./lib.js");
-var MININGFEE = 1000;
+var MININGFEE = 10000;
 
 const client = new btcClient({
 	headers: true,
