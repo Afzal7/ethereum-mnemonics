@@ -15,6 +15,7 @@
     "hdkey": "^1.0.0",
     "web3": "^1.0.0-beta.34",
     "bitcoinjs-lib": "^2.2.0",
+    "bip32": "^0.1.0",
     "bitcoin-core": "^2.0.0"
   }
 }

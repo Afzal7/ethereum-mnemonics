@@ -1,130 +1,125 @@
-const bip39 = require("bip39");
+const W3Main = require("./w3_main.js");
 const bitcoinjs = require('bitcoinjs-lib');
-const bitcoinjsClient = require('bitcoin-core');
-const W3 = require("./lib.js");
-var MININGFEE = 10000;
-var live = bitcoinjs.networks.bitcoin;
-var testnet = bitcoinjs.networks.testnet;
-
-const client = new bitcoinjsClient({
-	headers: true,
-	network: 'testnet',
-	host: '52.15.65.61',
-	password: 'secretpassword',
-	port: 18332,
-	username: 'alt247'
-})
+const btcClient = require('bitcoin-core');
+var MININGFEE = 1000;
 
 
-W3.generateMnemonic();
-W3.generateSeed();
-generateAddress(testnet);
-// performTransaction(1000000, '2N8zVTv31BadSqWsM923qaHKKgh4kCceDdv');
-// calculateBalance('mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn');
+var W3Bitcoin = function(){
 
-function generateAddress(network){
-	var root = bitcoinjs.HDNode.fromSeedHex(W3.seed, network);
-	const addrNode = root.derivePath("m/44'/1'/0'/0/0"); //line 1
-	var xprv = addrNode.toBase58();
-	var xpub = addrNode.neutered().toBase58();
-	var keyPair = new bitcoinjs.ECPair(addrNode.keyPair.d, null, { network: network, compressed: false });
-	var address = keyPair.getAddress()
-	var privkey = keyPair.toWIF();
-	var pubkey = keyPair.getPublicKeyBuffer().toString('hex');
+	var self = this;
 
-	W3.print('address: ', address)
-	W3.print('public key: ', pubkey)
-	W3.print('private key: ', privkey)
-	W3.print('extended private key: ', xprv)
-	W3.print('extended public key: ', xpub)
+	self.init = function(){
+		self.initBTCClient();
+	}
 
-	client.importAddress(address, 'tinyblock', (result, data) => {
-		W3.print('result: ', result);
-		W3.print('data: ', data);
-	})
-}
+	self.initBTCClient = function(){	
+		self.client = new btcClient({
+			headers: true,
+			network: 'testnet',
+			host: '52.15.65.61',
+			password: 'secretpassword',
+			port: 18332,
+			username: 'alt247'
+		});
+	}
+	
+	self.initWallet = function(){
+		W3Main.initWallet('BTC');
 
-function performTransaction(amount, recipient){
-	var testWIF = 'cQCcR6LGxxL8RCdKxhzEsbYbiR2YfP7kUPiGsaQFXnYSubmREcxP';
-	var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn';
-	var account = bitcoinjs.ECPair.fromWIF(testWIF, bitcoinjs.networks.testnet);
-	var finalTxid, txnhex;
-	var txn = new bitcoinjs.TransactionBuilder(bitcoinjs.networks.testnet);
+		self.address = self.getAddress(W3Main.node);
+		W3Main.print('BTC address: ', self.address);
+		
+		self.privKey = W3Main.node.toWIF();
+		W3Main.print('BTC Private Key: ', self.privKey);
 
-	client.listUnspent(1, 9999999, [address], (result, transactions) => {
-		if (result && result.name=="RpcError") {
-			W3.print('error: ', result.message);
-		}
-		else{
-			if (transactions[0].length) {
-				var transactionsUsed = 0, input = 0, change;
+		self.client.importAddress(self.address, 'tinyblock', (result, data) => {
+			W3Main.print('result: ', result);
+			W3Main.print('data: ', data);
+		})
+	}
 
-				for(var transaction of transactions[0]){
-					txn.addInput(transaction.txid, transaction.vout);
-					input += toSatoshi(transaction.amount);
-					transactionsUsed += 1;
-					if (input>=amount) break;
-				}
+	self.getAddress = function(node){
+	  var network = bitcoinjs.networks.bitcoin
+	  return bitcoinjs.address.toBase58Check(bitcoinjs.crypto.hash160(node.publicKey), network.pubKeyHash)
+	}
 
-				if (input < (amount + MININGFEE)){
-					W3.print('error: ', 'Insufficient funds');
-				}
-				else{
-					change = input - (amount + MININGFEE);
-					txn.addOutput(recipient, amount);
-					if (change){
-						txn.addOutput(address, change);
-					}
+	self.toSatoshi = function(amount){
+		return Math.floor(amount * 100000000);
+	}
 
-					for (var i = 0; i < transactionsUsed; i++) {
-						txn.sign(i, account);
-					}
+	self.initTx = function(amount, recipient){
+		var testWIF = 'cQCcR6LGxxL8RCdKxhzEsbYbiR2YfP7kUPiGsaQFXnYSubmREcxP';
+		var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn';
+		var account = bitcoinjs.ECPair.fromWIF(testWIF, bitcoinjs.networks.testnet);
+		var finalTxid, txnhex;
+		var txn = new bitcoinjs.TransactionBuilder(bitcoinjs.networks.testnet);
 
-					txnhex = txn.build().toHex();
-					W3.print("txnhex: ", txnhex);
-
-					client.sendRawTransaction(txnhex, (result, data) => {
-						if (result && result.name=="RpcError") {
-							W3.print('transaction error: ',result.message);
-						}
-						else{
-							finalTxid = data[0];
-							W3.print("Final transaction ID: ", finalTxid)
-						}
-					});
-				}
+		self.client.listUnspent(6, 9999999, [address], (result, transactions) => {
+			if (result && result.name=="RpcError") {
+				W3Main.print('Bitcoin error: ', result.message);
 			}
 			else{
-				console.log("No unspent transactions present")
-			}
-		}
-	});
-}
+				if (transactions[0].length) {
+					var transactionsUsed = 0, input = 0, change;
+					for(var transaction of transactions[0]){
+						txn.addInput(transaction.txid, transaction.vout);
+						input += self.toSatoshi(transaction.amount);
+						transactionsUsed += 1;
+						if (input>=amount) break;
+					}
 
-function calculateBalance(address){
-	var balance = 0;
-	client.listUnspent(1, 9999999, [address], (result, transactions) => {
-		if (result && result.name=="RpcError") {
-			W3.print('error: ', result.message);
-		}
-		else{
-			if (transactions[0].length) {
-				for(var transaction of transactions[0]){
-					balance += transaction.amount;
+					if (input <= (amount + MININGFEE)){
+						W3Main.print('Bitcoin error: ', 'Insufficient funds');
+					}
+					else{
+						change = input - (amount + MININGFEE);
+						txn.addOutput(recipient, amount);
+						if (change){
+							txn.addOutput(address, change);
+						}
+
+						for (var i = 0; i < transactionsUsed; i++) {
+							txn.sign(i, account);
+						}
+
+						txnhex = txn.build().toHex();
+						W3Main.print("Bitcoin txnhex: ", txnhex);
+
+						self.client.sendRawTransaction(txnhex, (result, data) => {
+							if (result && result.name=="RpcError") {
+								W3Main.print('transaction error: ',result.message);
+							}
+							else{
+								finalTxid = data[0];
+								W3Main.print("Bitcoin Final transaction ID: ", finalTxid)
+							}
+						});
+					}
+				}
+				else{
+					console.log("Bitcoin error:  No unspent transactions present")
 				}
 			}
-			W3.print('balance: ', balance)
-		}
-	});
-	return balance;
+		});		
+	}
+
+	self.getBalance = function(address){
+		var balance = 0;
+		self.client.listUnspent(6, 9999999, [address], (result, transactions) => {
+			if (result && result.name=="RpcError") {
+				W3Main.print('Bitcoin error: ', result.message);
+			}
+			else{
+				if (transactions[0].length) {
+					for(var transaction of transactions[0]){
+						balance += transaction.amount;
+					}
+				}
+			}
+			W3Main.print("Balance for address '"+address+"': ", balance )
+		});
+	}
+
 }
 
-
-function getAddress (node, network) {
-  network = network || bitcoinjs.networks.bitcoin
-  return bitcoinjs.address.toBase58Check(bitcoinjs.crypto.hash160(node.publicKey), network.pubKeyHash)
-}
-
-function toSatoshi(amount){
-	return Math.floor(amount * 100000000);
-}
+module.exports = new W3Bitcoin();
