@@ -1,12 +1,11 @@
-const bip39 = require("bip39");
-const bip32 = require("bip32");
+const W3Main = require("./w3_main.js");
 const ethUtil = require('ethereumjs-util');
 const ethTx = require('ethereumjs-tx');
 const Web3 = require("web3");
 
-var W3 = function(){
+var W3Ether = function(){
 
-	self = this;
+	var self = this;
 	self.infura_ley = '5GZBABYhPzfctlTOIiXu'
 	self.networkUrl = 'https://ropsten.infura.io/'+self.infura_ley;
 
@@ -29,38 +28,8 @@ var W3 = function(){
 	// Wallet Generation related Functions
 	// 
 
-	self.generateMnemonic = function(){
-		self.mnemonic = bip39.generateMnemonic();
-		// self.mnemonic = 'only nuclear vehicle share ecology dish act summer share best confirm raw'
-		self.print('mnemonic: ', self.mnemonic);
-	}
-
-	self.generateSeed = function(){
-		self.seed = bip39.mnemonicToSeed(self.mnemonic);
-		self.print('seed: ', self.seed);
-	}
-
-	self.generateRoot = function(){
-		// self.root = hdkey.fromMasterSeed(self.seed);
-		self.root = bip32.fromSeed(self.seed)
-		self.print('root: ', self.root);
-
-		masterPrivateKey = self.root.privateKey.toString('hex');
-		self.print('masterPrivateKey: ', masterPrivateKey);
-
-		masterPublicKey = self.root.publicKey.toString('hex');
-		self.print('masterPublicKey: ', masterPublicKey);
-	}
-
-	self.generateNode = function(){
-		// To create a single address we’ll derive an address node. And then extract the address out of it.
-		// derivation path:  m / purpose' / coin_type' / account' / change / address_index
-		self.node = self.root.derivePath("m/44'/60'/0'/0/0"); //line 1
-		self.print('node:', self.node);
-
-		self.print('node._privateKey: ', self.node.privateKey.toString('hex'));
-
-		pubKey = ethUtil.privateToPublic(self.node.privateKey);
+	self.generateAddress = function(){
+		pubKey = ethUtil.privateToPublic(W3Main.node.privateKey);
 		self.print('pubKey:', pubKey);
 
 		addr = ethUtil.publicToAddress(pubKey).toString('hex');
@@ -71,10 +40,8 @@ var W3 = function(){
 	}
 
 	self.initWallet = function(){
-		self.generateMnemonic();
-		self.generateSeed();
-		self.generateRoot();
-		self.generateNode();
+		W3Main.initWallet('ETH');
+		self.generateAddress();
 	}
 
 	// 
@@ -138,4 +105,4 @@ var W3 = function(){
 	}
 }
 
-module.exports = new W3();
+module.exports = new W3Ether();
