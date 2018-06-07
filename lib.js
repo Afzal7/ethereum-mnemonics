@@ -31,6 +31,7 @@ var W3 = function(){
 
 	self.generateMnemonic = function(){
 		self.mnemonic = bip39.generateMnemonic();
+		// self.mnemonic = 'only nuclear vehicle share ecology dish act summer share best confirm raw'
 		self.print('mnemonic: ', self.mnemonic);
 	}
 

@@ -1,11 +1,12 @@
 const bip39 = require("bip39");
-const bip32 = require("bip32");
-const btc = require('bitcoinjs-lib');
-const btcClient = require('bitcoin-core');
+const bitcoinjs = require('bitcoinjs-lib');
+const bitcoinjsClient = require('bitcoin-core');
 const W3 = require("./lib.js");
 var MININGFEE = 10000;
+var live = bitcoinjs.networks.bitcoin;
+var testnet = bitcoinjs.networks.testnet;
 
-const client = new btcClient({
+const client = new bitcoinjsClient({
 	headers: true,
 	network: 'testnet',
 	host: '52.15.65.61',
@@ -15,24 +16,27 @@ const client = new btcClient({
 })
 
 
-// W3.generateMnemonic();
-// W3.generateSeed();
-// generateAddress();
+W3.generateMnemonic();
+W3.generateSeed();
+generateAddress(testnet);
 // performTransaction(1000000, '2N8zVTv31BadSqWsM923qaHKKgh4kCceDdv');
-calculateBalance('mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn');
+// calculateBalance('mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn');
 
-function generateAddress(){
-	const root = bip32.fromSeed(W3.seed)
-
-	const addrNode = root.derivePath("m/44'/0'/0'/0/0"); //line 1
-	var address = getAddress(addrNode)
+function generateAddress(network){
+	var root = bitcoinjs.HDNode.fromSeedHex(W3.seed, network);
+	const addrNode = root.derivePath("m/44'/1'/0'/0/0"); //line 1
+	var xprv = addrNode.toBase58();
+	var xpub = addrNode.neutered().toBase58();
+	var keyPair = new bitcoinjs.ECPair(addrNode.keyPair.d, null, { network: network, compressed: false });
+	var address = keyPair.getAddress()
+	var privkey = keyPair.toWIF();
+	var pubkey = keyPair.getPublicKeyBuffer().toString('hex');
 
 	W3.print('address: ', address)
-	W3.print('public key: ', addrNode.publicKey.toString('hex'))
-	W3.print('private key: ', addrNode.privateKey.toString('hex'))
-	W3.print('WIF: ', addrNode.toWIF())
-	W3.print('extended private key: ', root.toWIF())
-	W3.print('extended public key: ', root.neutered().toBase58())
+	W3.print('public key: ', pubkey)
+	W3.print('private key: ', privkey)
+	W3.print('extended private key: ', xprv)
+	W3.print('extended public key: ', xpub)
 
 	client.importAddress(address, 'tinyblock', (result, data) => {
 		W3.print('result: ', result);
@@ -43,9 +47,9 @@ function generateAddress(){
 function performTransaction(amount, recipient){
 	var testWIF = 'cQCcR6LGxxL8RCdKxhzEsbYbiR2YfP7kUPiGsaQFXnYSubmREcxP';
 	var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn';
-	var account = btc.ECPair.fromWIF(testWIF, btc.networks.testnet);
+	var account = bitcoinjs.ECPair.fromWIF(testWIF, bitcoinjs.networks.testnet);
 	var finalTxid, txnhex;
-	var txn = new btc.TransactionBuilder(btc.networks.testnet);
+	var txn = new bitcoinjs.TransactionBuilder(bitcoinjs.networks.testnet);
 
 	client.listUnspent(1, 9999999, [address], (result, transactions) => {
 		if (result && result.name=="RpcError") {
@@ -117,8 +121,8 @@ function calculateBalance(address){
 
 
 function getAddress (node, network) {
-  network = network || btc.networks.bitcoin
-  return btc.address.toBase58Check(btc.crypto.hash160(node.publicKey), network.pubKeyHash)
+  network = network || bitcoinjs.networks.bitcoin
+  return bitcoinjs.address.toBase58Check(bitcoinjs.crypto.hash160(node.publicKey), network.pubKeyHash)
 }
 
 function toSatoshi(amount){
