@@ -1,108 +1,125 @@
-const bip39 = require("bip39");
-const bip32 = require("bip32");
-const btc = require('bitcoinjs-lib');
+const W3Main = require("./w3_main.js");
+const bitcoinjs = require('bitcoinjs-lib');
 const btcClient = require('bitcoin-core');
-const W3 = require("./lib.js");
-var MININGFEE = 10000;
-
-const client = new btcClient({
-	headers: true,
-	network: 'testnet',
-	host: '52.15.65.61',
-	password: 'secretpassword',
-	port: 18332,
-	username: 'alt247'
-})
+var MININGFEE = 1000;
 
 
-// W3.generateMnemonic();
-// W3.generateSeed();
-// generateAddress();
-performTransaction(1000000, '2N8zVTv31BadSqWsM923qaHKKgh4kCceDdv');
+var W3Bitcoin = function(){
 
+	var self = this;
 
-function generateAddress(){
-	const root = bip32.fromSeed(W3.seed)
+	self.init = function(){
+		self.initBTCClient();
+	}
 
-	const addrNode = root.derivePath("m/44'/0'/0'/0/0"); //line 1
-	var address = getAddress(addrNode)
+	self.initBTCClient = function(){	
+		self.client = new btcClient({
+			headers: true,
+			network: 'testnet',
+			host: '52.15.65.61',
+			password: 'secretpassword',
+			port: 18332,
+			username: 'alt247'
+		});
+	}
+	
+	self.initWallet = function(){
+		W3Main.initWallet('BTC');
 
-	W3.print('address: ', address)
-	W3.print('public key: ', addrNode.publicKey.toString('hex'))
-	W3.print('private key: ', addrNode.privateKey.toString('hex'))
-	W3.print('WIF: ', addrNode.toWIF())
-	W3.print('extended private key: ', root.toWIF())
-	W3.print('extended public key: ', root.neutered().toBase58())
+		self.address = self.getAddress(W3Main.node);
+		W3Main.print('BTC address: ', self.address);
+		
+		self.privKey = W3Main.node.toWIF();
+		W3Main.print('BTC Private Key: ', self.privKey);
 
-	client.importAddress(address, 'tinyblock', (result, data) => {
-		W3.print('result: ', result);
-		W3.print('data: ', data);
-	})
-}
+		self.client.importAddress(self.address, 'tinyblock', (result, data) => {
+			W3Main.print('result: ', result);
+			W3Main.print('data: ', data);
+		})
+	}
 
-function performTransaction(amount, recipient){
-	var testWIF = 'cQCcR6LGxxL8RCdKxhzEsbYbiR2YfP7kUPiGsaQFXnYSubmREcxP';
-	var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn';
-	var account = btc.ECPair.fromWIF(testWIF, btc.networks.testnet);
-	var finalTxid, txnhex;
-	var txn = new btc.TransactionBuilder(btc.networks.testnet);
+	self.getAddress = function(node){
+	  var network = bitcoinjs.networks.bitcoin
+	  return bitcoinjs.address.toBase58Check(bitcoinjs.crypto.hash160(node.publicKey), network.pubKeyHash)
+	}
 
-	client.listUnspent(1, 9999999, [address], (result, transactions) => {
-		if (result && result.name=="RpcError") {
-			W3.print('error: ', result.message);
-		}
-		else{
-			if (transactions[0].length) {
-				var transactionsUsed = 0, input = 0, change;
+	self.toSatoshi = function(amount){
+		return Math.floor(amount * 100000000);
+	}
 
-				for(var transaction of transactions[0]){
-					txn.addInput(transaction.txid, transaction.vout);
-					input += toSatoshi(transaction.amount);
-					transactionsUsed += 1;
-					if (input>=amount) break;
-				}
+	self.initTx = function(amount, recipient){
+		var testWIF = 'cQCcR6LGxxL8RCdKxhzEsbYbiR2YfP7kUPiGsaQFXnYSubmREcxP';
+		var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn';
+		var account = bitcoinjs.ECPair.fromWIF(testWIF, bitcoinjs.networks.testnet);
+		var finalTxid, txnhex;
+		var txn = new bitcoinjs.TransactionBuilder(bitcoinjs.networks.testnet);
 
-				if (input <= (amount + MININGFEE)){
-					W3.print('error: ', 'Insufficient funds');
-				}
-				else{
-					change = input - (amount + MININGFEE);
-					txn.addOutput(recipient, amount);
-					if (change){
-						txn.addOutput(address, change);
-					}
-
-					for (var i = 0; i < transactionsUsed; i++) {
-						txn.sign(i, account);
-					}
-
-					txnhex = txn.build().toHex();
-					W3.print("txnhex: ", txnhex);
-
-					client.sendRawTransaction(txnhex, (result, data) => {
-						if (result && result.name=="RpcError") {
-							W3.print('transaction error: ',result.message);
-						}
-						else{
-							finalTxid = data[0];
-							W3.print("Final transaction ID: ", finalTxid)
-						}
-					});
-				}
+		self.client.listUnspent(6, 9999999, [address], (result, transactions) => {
+			if (result && result.name=="RpcError") {
+				W3Main.print('Bitcoin error: ', result.message);
 			}
 			else{
-				console.log("No unspent transactions present")
+				if (transactions[0].length) {
+					var transactionsUsed = 0, input = 0, change;
+					for(var transaction of transactions[0]){
+						txn.addInput(transaction.txid, transaction.vout);
+						input += self.toSatoshi(transaction.amount);
+						transactionsUsed += 1;
+						if (input>=amount) break;
+					}
+
+					if (input <= (amount + MININGFEE)){
+						W3Main.print('Bitcoin error: ', 'Insufficient funds');
+					}
+					else{
+						change = input - (amount + MININGFEE);
+						txn.addOutput(recipient, amount);
+						if (change){
+							txn.addOutput(address, change);
+						}
+
+						for (var i = 0; i < transactionsUsed; i++) {
+							txn.sign(i, account);
+						}
+
+						txnhex = txn.build().toHex();
+						W3Main.print("Bitcoin txnhex: ", txnhex);
+
+						self.client.sendRawTransaction(txnhex, (result, data) => {
+							if (result && result.name=="RpcError") {
+								W3Main.print('transaction error: ',result.message);
+							}
+							else{
+								finalTxid = data[0];
+								W3Main.print("Bitcoin Final transaction ID: ", finalTxid)
+							}
+						});
+					}
+				}
+				else{
+					console.log("Bitcoin error:  No unspent transactions present")
+				}
 			}
-		}
-	});
+		});		
+	}
+
+	self.getBalance = function(address){
+		var balance = 0;
+		self.client.listUnspent(6, 9999999, [address], (result, transactions) => {
+			if (result && result.name=="RpcError") {
+				W3Main.print('Bitcoin error: ', result.message);
+			}
+			else{
+				if (transactions[0].length) {
+					for(var transaction of transactions[0]){
+						balance += transaction.amount;
+					}
+				}
+			}
+			W3Main.print("Balance for address '"+address+"': ", balance )
+		});
+	}
+
 }
 
-
-function getAddress (node, network) {
-  network = network || btc.networks.bitcoin
-  return btc.address.toBase58Check(btc.crypto.hash160(node.publicKey), network.pubKeyHash)
-}
-
-function toSatoshi(amount){
-	return Math.floor(amount * 100000000);
-}
+module.exports = new W3Bitcoin();

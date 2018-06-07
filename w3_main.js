@@ -16,20 +16,17 @@ var W3Main = function(){
 	// 
 
 	self.generateMnemonic = function(){
-		self.mnemonic = bip39.generateMnemonic();
+		self.mnemonic = self.mnemonic || bip39.generateMnemonic();
 		self.print('mnemonic: ', self.mnemonic);
 	}
 
 	self.generateSeed = function(){
-		self.seed = bip39.mnemonicToSeed(self.mnemonic);
-		self.print('seed: ', self.seed);
+		self.seed = self.seed || bip39.mnemonicToSeed(self.mnemonic);
 	}
 
 	self.generateRoot = function(){
 		// self.root = hdkey.fromMasterSeed(self.seed);
-		self.root = bip32.fromSeed(self.seed)
-		self.print('root: ', self.root);
-
+		self.root = self.root || bip32.fromSeed(self.seed)
 		masterPrivateKey = self.root.privateKey.toString('hex');
 		self.print('masterPrivateKey: ', masterPrivateKey);
 
@@ -43,7 +40,6 @@ var W3Main = function(){
 		self.print('Generating node for ', CoinList[coin_symbol].bip_44_code);
 
 		self.node = self.root.derivePath("m/44'/"+CoinList[coin_symbol].bip_44_code+"'/0'/0/0"); //line 1
-		self.print('node:', self.node);
 
 		self.print('node._privateKey: ', self.node.privateKey.toString('hex'));
 	}
