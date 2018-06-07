@@ -6,14 +6,9 @@ const hdkey = require("hdkey");
 const ethUtil = require('ethereumjs-util');
 const ethTx = require('ethereumjs-tx');
 const Web3 = require("web3");
-const W3 = require("./lib.js");
+const W3Ether = require("./w3_ether.js");
 
-print('Libraries Loaded!');
+W3Ether.init();
+W3Ether.initWallet();
 
-W3.init();
-// W3.initWallet();
-W3.initTx('0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8', '2');
-
-// W3.getBalance('0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8').then(function(data){
-// 	print('balance:', data);
-// });
+W3Ether.initTx('0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8', '2');
