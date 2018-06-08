@@ -21,6 +21,7 @@ var W3Litecoin = function(){
 	var self = this;
 
 	self.init = function(){
+		// console.log(bitcoinjs.networks)
 		self.initClient();
 	}
 	
