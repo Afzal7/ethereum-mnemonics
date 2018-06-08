@@ -1,7 +1,7 @@
 const W3Main = require("./w3_main.js");
 const bitcoinjs = require('bitcoinjs-lib');
 const btcClient = require('bitcoin-core');
-var MININGFEE = 1000;
+var MININGFEE = 10000;
 
 
 var W3Bitcoin = function(){
