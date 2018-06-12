@@ -1,9 +1,12 @@
 const bip39 = require("bip39");
 const bip32 = require("bip32");
 const CoinList = require("./coin_list.js");
+const fs = require('fs');
 
 var W3Main = function(){
 	var self = this;
+
+	self.wallets_file = 'wallets.json';
 
 	self.print = function(name, message=''){
 		console.log('');
@@ -51,6 +54,62 @@ var W3Main = function(){
 		self.generateSeed();
 		self.generateRoot();
 		self.generateNode(coin_symbol);
+	}
+
+	self.addWallet = function(coin_symbol, wallet){
+		self.wallets[coin_symbol] = wallet;
+	}
+
+	self.exportWallets = function(){
+		self.print('Exporting wallets...');
+		
+		self.wallets = {
+			BTC: {privateKey: '123', publicKey: '321'}
+		}
+		
+		self.writeToFile(self.wallets, function(response){
+			console.log(response);
+			self.print('Export complete!')
+		});
+	}
+
+	self.importWallets = function(){
+		self.print('Importing wallets...');
+
+		self.readFromFile(function(err, data){
+			if (err){
+	        console.log(err);
+	    } else {
+	    	self.wallets = JSON.parse(data);
+	    	self.print('wallets', self.wallets)
+			}
+		});
+	}
+
+	self.writeToFile = function(data, callback){
+		data_json = JSON.stringify(data); //convert it to json
+		fs.writeFile(self.wallets_file, data_json, 'utf8', function(data){
+			callback(data);
+		});
+	}
+
+	self.readFromFile = function(callback){
+		// Check if file exists 
+		fs.exists(self.wallets_file, function(exists){
+			if (!exists){
+				var empty = {}
+				empty_json = JSON.stringify(empty);
+				fs.writeFile(self.wallets_file, empty_json, function(){
+					fs.readFile(self.wallets_file, 'utf8', function readFileCallback(err, data){
+						callback(err, data);
+					});
+				});
+			} else {
+				fs.readFile(self.wallets_file, 'utf8', function readFileCallback(err, data){
+					callback(err, data);
+				});
+			}
+		});
 	}
 };
 module.exports = new W3Main();
