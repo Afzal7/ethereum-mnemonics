@@ -17,7 +17,8 @@ var W3Main = function(){
 	// 
 
 	self.generateMnemonic = function(){
-		self.mnemonic = self.mnemonic || 'sauce apple trust addict quiz exchange demand bulk almost clock notice glide';
+		// self.mnemonic = self.mnemonic || 'sauce apple trust addict quiz exchange demand bulk almost clock notice glide';
+		self.mnemonic = self.mnemonic || bip39.generateMnemonic();
 		self.print('mnemonic: ', self.mnemonic);
 	}
 
