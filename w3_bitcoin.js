@@ -25,12 +25,12 @@ var W3Bitcoin = function(){
 	
 	self.initWallet = function(){
 		W3Main.initWallet('BTC');
+		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { compressed: true });
+		self.address = keyPair.getAddress();
+		self.privkey = keyPair.toWIF();
 
-		self.address = self.getAddress(W3Main.node);
 		W3Main.print('BTC address: ', self.address);
-		
-		self.privKey = W3Main.node.toWIF();
-		W3Main.print('BTC Private Key: ', self.privKey);
+		W3Main.print('BTC Private Key: ', self.privkey);
 
 		self.client.importAddress(self.address, 'tinyblock', (result, data) => {
 			W3Main.print('result: ', result);

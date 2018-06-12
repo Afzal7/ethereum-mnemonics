@@ -9,7 +9,7 @@ const Web3 = require("web3");
 const W3Ether = require("./w3_ether.js");
 const W3Bitcoin = require("./w3_bitcoin.js");
 const W3Litecoin = require("./w3_litecoin.js");
-
+const W3BitcoinCash = require("./w3_bitcoin_cash.js");
 
 W3Ether.init();
 W3Ether.initWallet();
@@ -23,16 +23,20 @@ W3Ether.initTx('0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '0xdc95f34b6E36C7fe
 W3Ether.getBalance('0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8').then(function(data){
 	console.log('Reciever balance:', W3Ether.toEther(data));
 
-	// W3Ether.initTx('0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8', '1000000000000000000');
-	// W3Ether.initTx('0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8', '0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '1000000000000000000');
+	W3Ether.initTx('0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8', '1000000000000000000');
+	W3Ether.initTx('0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8', '0x99A5255df833AB35Cf5d9EA52e3aEDc697B49bba', '1000000000000000000');
 });
 
 W3Bitcoin.init();
 W3Bitcoin.initWallet();
 W3Bitcoin.initTx(W3Bitcoin.toSatoshi(0.01), '2N8JJbbNSZLyfiRW5TeL8hATy9r2Ras6TUt');
-W3Bitcoin.getBalance('2N8JJbbNSZLyfiRW5TeL8hATy9r2Ras6TUt');
-
+W3Bitcoin.getBalance('mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn');
 
 W3Litecoin.init();
 W3Litecoin.initWallet();
 W3Litecoin.initTx(W3Litecoin.toSatoshi(1), 'mkga1we9vQPJ8oXJQiuYNB3TbcLLagJAV4');
+
+
+
+W3BitcoinCash.initWallet();
+W3BitcoinCash.initTx('bchtest:qqyn7hfyf247qt8zwly3q5tsxx4xzfc6ts3rthf938', 0.15)

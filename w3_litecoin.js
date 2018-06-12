@@ -37,15 +37,11 @@ var W3Litecoin = function(){
 	}
 
 	self.initWallet = function(){
-		W3Main.generateMnemonic();
-		W3Main.generateSeed();
+		W3Main.initWallet('LTC', litecoin)
 
-		var root = bitcoinjs.HDNode.fromSeedHex(W3Main.seed, litecoin);
-		var extendedKey = root.derivePath("m/44'/2'/0'/0");
-		var keyPair = new bitcoinjs.ECPair(extendedKey.keyPair.d, null, { network: litecoin, compressed: false });
+		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { network: litecoin, compressed: true });
 		self.address = keyPair.getAddress();
 		self.privkey = keyPair.toWIF();
-		// var pubkey = keyPair.getPublicKeyBuffer().toString('hex');
 
 		W3Main.print('Litecoin address: ', self.address)
 		W3Main.print('Litecoin privkey: ', self.privkey)
