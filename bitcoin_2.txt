@@ -1,0 +1,33 @@
+Initiating Wallet for BTC
+
+
+mnemonic:  situate build syrup fold shell square hold ivory palm shock hold thrive
+
+
+Extended public key:  tpubD6NzVbkrYhZ4XLkYKL4Ys79dtDcFKmWwDJA5Ee22g3ZHREDDosKMhUV7TCvDTWAVhBEo11b3MpYGbo3av5LCNeYfWxNfVs6wor9HaziDJfo
+
+
+Extended private key:  tprv8ZgxMBicQKsPdsikRgPxThVXKC6KASL2dzZHx7yjFmktajxTBUVmWysFH2kmB5GezGGrRg6QWnNKosFMu93VP3rA5ek34gcUwr46fxA5top
+
+
+Generating node for  0
+
+
+BTC address:  n31HMbWasWFaskm1i3qwUsz5BrCaFWWiFu
+
+
+BTC Private Key:  cQWzH4t9VGqpLvn4Vgs3wiDZVWo2XWa8HHEtz8zhAQhDTZWGCGfv
+
+///////////////////
+
+
+
+
+inside thought ranch remove used margin clap turn worry cave advance exist
+
+privateKey
+:
+"cQTbiuftRq3YGFyucPGkytJ8Lj7Y93bVKd3HUCrb3TAuEBKfNYKo"
+publicKey
+:
+"mrtFqsL1th5BAH1oRxJdorpErzcK7ZAjEB"

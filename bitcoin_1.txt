@@ -1,0 +1,21 @@
+
+Initiating Wallet for BTC
+
+
+mnemonic:  brass calm loyal timber ancient chaos essay allow salmon devote panel sing
+
+
+Extended public key:  tpubD6NzVbkrYhZ4WtV96R4K4mUSiNe7gkAV5wEWgdQ6fMFp1qgm88PguTjGfgQBxVNyePRqnE4PnEu3JPsfbCZ5qdW63LucE4KTQUoJixdRBgb
+
+
+Extended private key:  tprv8ZgxMBicQKsPdRTMCmPifMpL9M8BXQyaWddjQ7MoF5TRBMRzVja6iy7QVZXJALab3Bm397xvVkvtYhe65h2tzdT8YVQoUr4S3N45MadhyQS
+
+
+Generating node for  0
+
+
+BTC address:  muv8JgWmTtCfQNswQn6xN7PvugyHQMvN7v
+
+
+BTC Private Key:  cNStKLtwPbcg46tVXakvjHYvper1cyG38Q5wr7ryrUJGs8R9tb38
+

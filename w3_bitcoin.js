@@ -16,23 +16,24 @@ var W3Bitcoin = function(){
 		self.client = new btcClient({
 			headers: true,
 			network: 'testnet',
-			host: '52.15.65.61',
-			password: 'secretpassword',
+			host: '13.232.249.83',
+			password: 'bitcoin',
 			port: 18332,
-			username: 'alt247'
+			username: 'bitcoin'
 		});
 	}
 	
 	self.initWallet = function(){
-		W3Main.initWallet('BTC');
-		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { compressed: true });
+		W3Main.initWallet('BTC', bitcoinjs.networks.testnet);
+		const testnet = bitcoinjs.networks.testnet
+		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { compressed: true, network: testnet });
 		self.address = keyPair.getAddress();
 		self.privkey = keyPair.toWIF();
 
 		W3Main.print('BTC address: ', self.address);
 		W3Main.print('BTC Private Key: ', self.privkey);
 
-		self.client.importAddress(self.address, 'tinyblock', (result, data) => {
+		self.client.importAddress(self.address, 'tinyblocks', (result, data) => {
 			W3Main.print('result: ', result);
 			W3Main.print('data: ', data);
 		})
@@ -48,8 +49,8 @@ var W3Bitcoin = function(){
 	}
 
 	self.initTx = function(amount, recipient){
-		var testWIF = 'cQCcR6LGxxL8RCdKxhzEsbYbiR2YfP7kUPiGsaQFXnYSubmREcxP';
-		var address = 'mpTeFyADfMv5JCsAj7hYCtz9QzuvL7ZVrn';
+		var testWIF = 'cNStKLtwPbcg46tVXakvjHYvper1cyG38Q5wr7ryrUJGs8R9tb38';
+		var address = 'muv8JgWmTtCfQNswQn6xN7PvugyHQMvN7v';
 		var account = bitcoinjs.ECPair.fromWIF(testWIF, bitcoinjs.networks.testnet);
 		var finalTxid, txnhex;
 		var txn = new bitcoinjs.TransactionBuilder(bitcoinjs.networks.testnet);
@@ -106,6 +107,8 @@ var W3Bitcoin = function(){
 	self.getBalance = function(address){
 		var balance = 0;
 		self.client.listUnspent(6, 9999999, [address], (result, transactions) => {
+			W3Main.print("Result: ", result);
+			W3Main.print("Transactions: ", transactions);
 			if (result && result.name=="RpcError") {
 				W3Main.print('Bitcoin error: ', result.message);
 			}

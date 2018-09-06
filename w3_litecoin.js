@@ -29,7 +29,7 @@ var W3Litecoin = function(){
 		self.client = new bitcoinjsClient({
 			headers: true,
 			network: 'testnet',
-			host: '127.0.0.1',
+			host: '13.232.249.83',
 			password: 'password',
 			port: 18833,
 			username: 'litecoinrpc'
@@ -37,24 +37,24 @@ var W3Litecoin = function(){
 	}
 
 	self.initWallet = function(){
-		W3Main.initWallet('LTC', litecoin)
+		// W3Main.initWallet('LTC', ltctestnet)
 
-		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { network: litecoin, compressed: true });
-		self.address = keyPair.getAddress();
-		self.privkey = keyPair.toWIF();
+		// var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { network: ltctestnet, compressed: true });
+		// self.address = keyPair.getAddress();
+		// self.privkey = keyPair.toWIF();
 
-		W3Main.print('Litecoin address: ', self.address)
-		W3Main.print('Litecoin privkey: ', self.privkey)
+		// W3Main.print('Litecoin address: ', self.address)
+		// W3Main.print('Litecoin privkey: ', self.privkey)
 
-		self.client.importAddress(self.address, 'tinyblock', (result, data) => {
+		self.client.importAddress('mgQrVPCgSng7Pf6ne1qpWEHTJHkPKFxUhk', 'tinyblock', (result, data) => {
 			W3Main.print('result: ', result);
 			W3Main.print('data: ', data);
 		});
 	}
 
 	self.initTx = function(amount, recipient){
-		var testAddress = 'mzGDidMD8RR6D1kfca8rw2kWoyucEQKM2u';
-		var testWIF = '92Y6NPoKLZfefx4T9t9KJkmqjiWABX49x6mPtgWGC1tPmKVDNwT';
+		var testAddress = 'mgQrVPCgSng7Pf6ne1qpWEHTJHkPKFxUhk';
+		var testWIF = 'cREKfH6sXdfKGkRpE97ehPEELnCtvBVWcbbJmLXcY2eUbSxKD4Rz';
 
 		var account = bitcoinjs.ECPair.fromWIF(testWIF, ltctestnet);
 		var finalTxid, txnhex;
@@ -111,6 +111,28 @@ var W3Litecoin = function(){
 
 	self.toSatoshi = function(amount){
 		return Math.floor(amount * 100000000);
+	}
+
+	self.getBalance = function(address){
+		var balance = 0;
+		self.client.getAccount(address, (result) => {
+			console.log('asdasd', result);
+		});
+		self.client.listUnspent(1, 9999999, [address], (result, transactions) => {
+			W3Main.print("Result: ", result);
+			W3Main.print("Transactions: ", transactions);
+			if (result && result.name=="RpcError") {
+				W3Main.print('Litecoin error: ', result.message);
+			}
+			else{
+				if (transactions[0].length) {
+					for(var transaction of transactions[0]){
+						balance += transaction.amount;
+					}
+				}
+			}
+			W3Main.print("Balance for address '"+address+"': ", balance )
+		});
 	}
 
 }

@@ -1,0 +1,44 @@
+
+mnemonic:  census tobacco inch decorate evoke ignore suit slab scare document income once
+
+
+Extended public key:  xpub661MyMwAqRbcFnbYjgVoMtW2UEsHVrVvxRAoF7JAJpffxbhLwAXJqqjCnBaLVMF5eUi6WhbeCRD8CEJDHhsSKwLWWMGWc3HG8vgAFgcWB6X
+
+
+Extended private key:  xprv9s21ZrQH143K3JX5dexnzkZHvD2o6Pn5bCFCSitYkV8h5oNCPdD4J3QivxFCDevsmtRhSK88578Y8jdjy9Cmcn4P1brHyFnb3CRG6t3phnG
+
+
+Generating node for  145
+
+
+Bitcoin Cash Address:  bchtest:qr3l7nzxxthrvzucgm2l66ld9xt42a8apullqlwjhy
+
+
+Bitcoin Cash Legacy Address:  n2JVX1dx1A933zzwFNWhgjqGYnXympvqh7
+
+
+Private Key:  cRr2FLe1sCvKt9cmmx6ZfEFsjKStQLmKHLMHLaz4VHeJGPJXeHAM
+
+////////////////////////////////////////////////////////
+
+
+
+mnemonic:  steak hedgehog never siege rail jacket spend coyote team arrest kidney private
+
+
+Extended public key:  xpub661MyMwAqRbcGqeEbezC4KW2AMboA7KU941fxUpsSBMmr7kQsJXqi1PkqK9DV1BkwGJaC68Lh9wX2Mp1MApmHU2cawmCAAjNdKMHH35XZec
+
+
+Extended private key:  xprv9s21ZrQH143K4MZmVdTBhBZHcKmJkebcmq65A6RFsqpnyKRGKmDbAD5Gz5TpJj8Pm9MJFp5YxtH1356f9BMJyXKZFG6sfBXQPHv4akLMmaH
+
+
+Generating node for  145
+
+
+Bitcoin Cash Address:  bchtest:qzm9g96xvelph3htdyvlwcqxtznhpfadxsxdqh57rz
+
+
+Bitcoin Cash Legacy Address:  mx921hw9dFvh5XzaTFaDJ44gxbX8MWEqjv
+
+
+Private Key:  cReqCP5VTncX7NMRUrA7RdGcuha6LYDfDyn1f1Fm3zNCKZR4sJDm

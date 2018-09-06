@@ -11,8 +11,8 @@ var W3BitcoinCash = function(){
 
 	self.initWallet = function(){
 		W3Main.initWallet('BCH');
-
-		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { compressed: true });
+		const testnet = bitcoinjs.networks.testnet;
+		var keyPair = new bitcoinjs.ECPair(W3Main.node.keyPair.d, null, { compressed: true,  network: testnet});
 		self.privkey = keyPair.toWIF();
 		var address = new bitcoincashjs.PrivateKey(self.privkey).toAddress();
 		self.cashAddress = address.toString(bitcoincashjs.Address.CashAddrFormat);
@@ -24,7 +24,7 @@ var W3BitcoinCash = function(){
 	}
 
 	self.initTx = function(recipient, amount){
-		var testCashAddress = "bchtest:qpjwq29pxh00jv7k0f6y3cwd5uhzmxhqwy4shutqfq", testLegacyAddress = "mpiLQ4GukKC4F29txd1HyDtAfEhFQpZppv", privateKey = "cVJCDTYss6CnNEtKCMqTMqimMunRfguqLdWVts5Ve76hbPZgnxoL"
+		var testCashAddress = "bchtest:qr3l7nzxxthrvzucgm2l66ld9xt42a8apullqlwjhy", testLegacyAddress = "n2JVX1dx1A933zzwFNWhgjqGYnXympvqh7", privateKey = "cRr2FLe1sCvKt9cmmx6ZfEFsjKStQLmKHLMHLaz4VHeJGPJXeHAM"
 
 		var account = new bitcoincashjs.PrivateKey(privateKey);
 		var change, txnhex, finalTxid, input = 0, inputs = [], privateKeys = [];
@@ -36,7 +36,8 @@ var W3BitcoinCash = function(){
 		amount = W3Main.toSatoshi(amount);
 		var txn = new bitcoincashjs.Transaction(bitcoincashjs.Networks.testnet);
 
-		request.get('https://tbch.blockdozer.com/api/addr/'+testCashAddress+'/utxo', function(error, response, body){
+		request.get('https://tbch.blockdozer.com/insight-api/addr/'+testCashAddress+'/utxo', function(error, response, body){
+			console.log(body);
 			if(body){
 				var utxos = JSON.parse(body);
 				for (var utx of utxos) {
@@ -68,7 +69,7 @@ var W3BitcoinCash = function(){
 
 				request({
 					method: 'POST',
-					uri: 'https://tbch.blockdozer.com/api/tx/send',
+					uri: 'https://tbch.blockdozer.com/insight-api/tx/send',
 					body: {
 						'rawtx': txnhex
 					},
@@ -88,6 +89,16 @@ var W3BitcoinCash = function(){
 				W3Main.print("error: ", "No transactions present")
 			}
 
+		});
+	}
+
+	self.getBalance = function(address){
+		request.get('https://tbch.blockdozer.com/insight-api/addr/'+ address +'/balance', function(error, response, body){
+			if (response && response.statusCode == 200 && body){
+				console.log(body);
+			} else {
+				console.log(0);
+			}
 		});
 	}
 

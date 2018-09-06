@@ -1,0 +1,42 @@
+
+Initiating Wallet for LTC
+
+
+mnemonic:  future prevent story film onion charge miss use limit buzz pistol coach
+
+
+Extended public key:  ttpv96BtqegdxXceQqegTDx4BPCX2bekKWadbSsVvmToF3mLAhaVwb7q3UPkUhkLMhuGaywrXtKdV27DdpsAfRSPznAZJq2Y4qsW5mCzMbxrvDQ
+
+
+Extended private key:  ttub4XNESS7BCg9c2iMWhqSSFy2jUALwPm9HfxyXbkE6BEYvm4maGWAG45W1it9DKxxn9w55kBNVy7BT2Vj9GkuBtVsvkrAjjNrMpGZNbm4NL9t
+
+
+Generating node for  2
+
+
+Litecoin address:  mgQrVPCgSng7Pf6ne1qpWEHTJHkPKFxUhk
+
+
+Litecoin privkey:  cREKfH6sXdfKGkRpE97ehPEELnCtvBVWcbbJmLXcY2eUbSxKD4Rz
+
+
+==========================================================================
+
+
+mnemonic:  slice hand allow impulse fan lunch mosquito output gate machine question random
+
+
+Extended public key:  ttpv96BtqegdxXceQyXmohmvFF8nbygpjRoDquvkbgQjWp22ojA7eYy8gHBKB8VKepfZ8q2P4NAcemmSGbnFqFRxaAtEZ9VA7y5CnHM1FPzpBoj
+
+
+Extended private key:  ttub4XNESS7BCg9c2rEc4KGJKpy13YP1ogMsvS2nGfB2SzodQ6MByU1ZgtHaRJMDhL426XozSTuaj9rsJqk7MePbKJTEf5bRhMRsJ2PeVxceKZ8
+
+
+Generating node for  2
+
+
+Litecoin address:  mgceoKf3FT6xkopjKoNv33ipG9k11MwuFN
+
+
+Litecoin privkey:  cPt7N9gF5VXqHRYYzCVPSvuEv5NLVc9vP6iQXmRZ581JJkah2YYc
+

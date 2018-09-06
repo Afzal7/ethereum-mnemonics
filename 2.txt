@@ -34,11 +34,11 @@ addrNode: HDKey {
   _identifier: <Buffer ca 5d cf fd b5 de 97 90 2d 97 5a 7d a8 df 70 9f b9 73 e9 05> }
 
 
+node._privateKey:  e03055e3c90998ed0ca71c7a2bbc40055db4264c937fc0640e5839e7d03e6ea9
+
 pubKey: <Buffer ca a9 b9 f3 22 e1 76 09 93 47 7d 50 78 0f 98 e4 ca 7a 35 99 40 fb 6e ba bc 53 57 fa 04 9a 13 4d 4a 12 75 bd aa cd 17 b0 14 00 82 cd b1 51 26 6c 83 fd ... >
 
-
 addr: dc95f34b6e36c7fefd6bce81613c0118d188a1f8
-
 
 address: 0xdc95f34b6E36C7fefd6BCe81613c0118d188A1F8
 
